@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using onboardingAPI.Data;
 
@@ -11,9 +12,11 @@ using onboardingAPI.Data;
 namespace onboardingAPI.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240819213352_models")]
+    partial class models
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,13 +54,13 @@ namespace onboardingAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1b96639f-c219-412b-931c-83868fd428d1",
+                            Id = "8f26df3d-aca6-4a58-b004-2e0cae61d49f",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "c3d2d107-8ac6-4a58-8f6f-7caaba01b6eb",
+                            Id = "4957b5a4-80ca-4bd9-b5d3-bf19df3e1115",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -187,9 +190,6 @@ namespace onboardingAPI.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -259,9 +259,6 @@ namespace onboardingAPI.Migrations
 
                     b.Property<bool>("Verified")
                         .HasColumnType("bit");
-
-                    b.Property<DateTime>("VerifiedAt")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 

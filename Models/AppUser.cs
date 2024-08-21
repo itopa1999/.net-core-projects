@@ -20,6 +20,9 @@ namespace onboardingAPI.Models
         public int AccountNumber { get; set; }
         public bool IsActive { get; set; } = false;
         public bool Verified { get; set; } = false;
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime VerifiedAt { get; set; }
+
 
         // for navigation
         public Otp? Otp { get; set; }
@@ -42,7 +45,7 @@ namespace onboardingAPI.Models
     {
         public int Id { get; set; }
         public int BvnNumber { get; set; }
-        public DateOnly DOB { get; set; }
+        public DateOnly DOB { get; set; } 
         public string? Gender { get; set; }
         public bool Verified { get; set; } = false;
         public string? AppUserId { get; set; }

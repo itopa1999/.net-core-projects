@@ -26,6 +26,7 @@ namespace onboardingAPI.Services
         public string CreateToken(AppUser appUser)
         {
             var claims = new List<Claim>{
+                new Claim(ClaimTypes.NameIdentifier, appUser.Id),
                 new Claim(JwtRegisteredClaimNames.GivenName, appUser.UserName),
                 new Claim (JwtRegisteredClaimNames.Email, appUser.Email)
             };
@@ -53,7 +54,7 @@ namespace onboardingAPI.Services
         public int GenerateAccountNumber()
         {
             Random random = new Random();
-            return random.Next(1000000000, 1000000000);
+            return random.Next(100000000, 1000000000);
         }
     }
 

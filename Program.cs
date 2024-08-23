@@ -90,6 +90,7 @@ builder.Services.AddDbContext<ApplicationDBContext>(options => {
 // Repository
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IJwtRepository, JWTServices>();
+builder.Services.AddScoped<IBvnRepository, BvnRepository>();
 // Repository
 
 

@@ -11,5 +11,6 @@ namespace onboardingAPI.Interfaces
         string CreateToken(AppUser appUser);
         int GenerateAccountNumber();
         int GenerateToken();
+        string GenerateTransactionID();
     }
 }

@@ -27,13 +27,14 @@ namespace onboardingAPI.Services
         {
             var claims = new List<Claim>{
                 new Claim(ClaimTypes.NameIdentifier, appUser.Id),
+                new Claim("Verified", appUser.Verified.ToString()),
                 new Claim(JwtRegisteredClaimNames.GivenName, appUser.UserName),
                 new Claim (JwtRegisteredClaimNames.Email, appUser.Email)
             };
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
             var tokenDescriptor = new SecurityTokenDescriptor{
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(7),
+                Expires = DateTime.Now.AddHours(1),
                 SigningCredentials = creds,
                 Issuer = _config["JWT:Issuer"],
                 Audience = _config["JWT:Audience"]
@@ -55,6 +56,14 @@ namespace onboardingAPI.Services
         {
             Random random = new Random();
             return random.Next(100000000, 1000000000);
+        }
+
+        public string GenerateTransactionID()
+        {
+            Guid uuid = Guid.NewGuid();
+            string uuidString = uuid.ToString().Replace("-", "");
+
+            return uuidString.Substring(0, 12);
         }
     }
 

@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using onboardingAPI.Data;
 using onboardingAPI.Interfaces;
+using onboardingAPI.Middlewares;
 using onboardingAPI.Models;
 using onboardingAPI.Repository;
 using onboardingAPI.Services;
@@ -12,8 +13,11 @@ using onboardingAPI.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // controller
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(x => 
+        x.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve);
 // controller
+
+
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -91,6 +95,7 @@ builder.Services.AddDbContext<ApplicationDBContext>(options => {
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IJwtRepository, JWTServices>();
 builder.Services.AddScoped<IBvnRepository, BvnRepository>();
+builder.Services.AddScoped<ILoanRepository, LoanRepository>();
 // Repository
 
 
@@ -102,14 +107,24 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    // app.UseSwaggerUI(c =>
+    // {
+    //     c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+    //     c.RoutePrefix = string.Empty; // Makes Swagger UI available at the app's root URL
+    // });
 }
 
 app.UseHttpsRedirection();
 
+
+
 //JWT Authentication
 app.UseAuthentication();
+app.UseMiddleware<VerifiedMiddleware>();
+app.UseMiddleware<UserActionMiddleware>();
 app.UseAuthorization();
 //JWT Authentication
+
 
 // controller
 app.MapControllers();

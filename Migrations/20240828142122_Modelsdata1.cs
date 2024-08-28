@@ -7,63 +7,71 @@
 namespace onboardingAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class models : Migration
+    public partial class Modelsdata1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DeleteData(
-                table: "AspNetRoles",
-                keyColumn: "Id",
-                keyValue: "6cce71d3-aef5-4a7a-b2a0-8c55d6249c1d");
+            migrationBuilder.DropIndex(
+                name: "IX_LoanPayments_LoanId",
+                table: "LoanPayments");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "7548a09b-9ef4-4bda-80c8-da84ebbf1c3c");
+                keyValue: "3ec3ea44-3d18-4d49-a9c4-9522a5855545");
 
-            migrationBuilder.AddColumn<bool>(
-                name: "IsActive",
-                table: "Otps",
-                type: "bit",
-                nullable: false,
-                defaultValue: false);
+            migrationBuilder.DeleteData(
+                table: "AspNetRoles",
+                keyColumn: "Id",
+                keyValue: "42e99bfb-aae9-4ec4-b2c1-133b7ae1a0df");
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "4957b5a4-80ca-4bd9-b5d3-bf19df3e1115", null, "User", "USER" },
-                    { "8f26df3d-aca6-4a58-b004-2e0cae61d49f", null, "Admin", "ADMIN" }
+                    { "122d1923-03a8-44b9-a496-aaced193964d", null, "User", "USER" },
+                    { "e58d5cd3-42af-4554-a5c8-bd2a258c525c", null, "Admin", "ADMIN" }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LoanPayments_LoanId",
+                table: "LoanPayments",
+                column: "LoanId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DeleteData(
-                table: "AspNetRoles",
-                keyColumn: "Id",
-                keyValue: "4957b5a4-80ca-4bd9-b5d3-bf19df3e1115");
+            migrationBuilder.DropIndex(
+                name: "IX_LoanPayments_LoanId",
+                table: "LoanPayments");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "8f26df3d-aca6-4a58-b004-2e0cae61d49f");
+                keyValue: "122d1923-03a8-44b9-a496-aaced193964d");
 
-            migrationBuilder.DropColumn(
-                name: "IsActive",
-                table: "Otps");
+            migrationBuilder.DeleteData(
+                table: "AspNetRoles",
+                keyColumn: "Id",
+                keyValue: "e58d5cd3-42af-4554-a5c8-bd2a258c525c");
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "6cce71d3-aef5-4a7a-b2a0-8c55d6249c1d", null, "Admin", "ADMIN" },
-                    { "7548a09b-9ef4-4bda-80c8-da84ebbf1c3c", null, "User", "USER" }
+                    { "3ec3ea44-3d18-4d49-a9c4-9522a5855545", null, "Admin", "ADMIN" },
+                    { "42e99bfb-aae9-4ec4-b2c1-133b7ae1a0df", null, "User", "USER" }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LoanPayments_LoanId",
+                table: "LoanPayments",
+                column: "LoanId",
+                unique: true);
         }
     }
 }

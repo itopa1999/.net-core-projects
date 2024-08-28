@@ -51,13 +51,13 @@ namespace onboardingAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1b96639f-c219-412b-931c-83868fd428d1",
+                            Id = "e58d5cd3-42af-4554-a5c8-bd2a258c525c",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "c3d2d107-8ac6-4a58-8f6f-7caaba01b6eb",
+                            Id = "122d1923-03a8-44b9-a496-aaced193964d",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -392,6 +392,105 @@ namespace onboardingAPI.Migrations
                     b.ToTable("IDInfos");
                 });
 
+            modelBuilder.Entity("onboardingAPI.Models.Loan", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Tenure")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId")
+                        .IsUnique()
+                        .HasFilter("[AppUserId] IS NOT NULL");
+
+                    b.ToTable("Loans");
+                });
+
+            modelBuilder.Entity("onboardingAPI.Models.LoanHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("LoanId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId")
+                        .IsUnique()
+                        .HasFilter("[AppUserId] IS NOT NULL");
+
+                    b.HasIndex("LoanId")
+                        .IsUnique();
+
+                    b.ToTable("LoanHistories");
+                });
+
+            modelBuilder.Entity("onboardingAPI.Models.LoanPayment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Channel")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("LoanId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TransID")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("LoanId");
+
+                    b.ToTable("LoanPayments");
+                });
+
             modelBuilder.Entity("onboardingAPI.Models.Otp", b =>
                 {
                     b.Property<int>("Id")
@@ -419,6 +518,38 @@ namespace onboardingAPI.Migrations
                         .HasFilter("[AppUserId] IS NOT NULL");
 
                     b.ToTable("Otps");
+                });
+
+            modelBuilder.Entity("onboardingAPI.Models.UserActions", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeviceInfo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId")
+                        .IsUnique()
+                        .HasFilter("[AppUserId] IS NOT NULL");
+
+                    b.ToTable("UserActions");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -502,12 +633,60 @@ namespace onboardingAPI.Migrations
                     b.Navigation("AppUser");
                 });
 
+            modelBuilder.Entity("onboardingAPI.Models.Loan", b =>
+                {
+                    b.HasOne("onboardingAPI.Models.AppUser", "AppUser")
+                        .WithOne("Loan")
+                        .HasForeignKey("onboardingAPI.Models.Loan", "AppUserId");
+
+                    b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("onboardingAPI.Models.LoanHistory", b =>
+                {
+                    b.HasOne("onboardingAPI.Models.AppUser", null)
+                        .WithOne("LoanHistory")
+                        .HasForeignKey("onboardingAPI.Models.LoanHistory", "AppUserId");
+
+                    b.HasOne("onboardingAPI.Models.Loan", "Loan")
+                        .WithOne("LoanHistory")
+                        .HasForeignKey("onboardingAPI.Models.LoanHistory", "LoanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Loan");
+                });
+
+            modelBuilder.Entity("onboardingAPI.Models.LoanPayment", b =>
+                {
+                    b.HasOne("onboardingAPI.Models.AppUser", null)
+                        .WithOne("LoanPayment")
+                        .HasForeignKey("onboardingAPI.Models.LoanPayment", "AppUserId");
+
+                    b.HasOne("onboardingAPI.Models.Loan", "Loan")
+                        .WithMany("LoanPayment")
+                        .HasForeignKey("LoanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Loan");
+                });
+
             modelBuilder.Entity("onboardingAPI.Models.Otp", b =>
                 {
                     b.HasOne("onboardingAPI.Models.AppUser", "AppUser")
                         .WithOne("Otp")
                         .HasForeignKey("onboardingAPI.Models.Otp", "AppUserId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("onboardingAPI.Models.UserActions", b =>
+                {
+                    b.HasOne("onboardingAPI.Models.AppUser", "AppUser")
+                        .WithOne("UserAction")
+                        .HasForeignKey("onboardingAPI.Models.UserActions", "AppUserId");
 
                     b.Navigation("AppUser");
                 });
@@ -520,7 +699,22 @@ namespace onboardingAPI.Migrations
 
                     b.Navigation("IDInfo");
 
+                    b.Navigation("Loan");
+
+                    b.Navigation("LoanHistory");
+
+                    b.Navigation("LoanPayment");
+
                     b.Navigation("Otp");
+
+                    b.Navigation("UserAction");
+                });
+
+            modelBuilder.Entity("onboardingAPI.Models.Loan", b =>
+                {
+                    b.Navigation("LoanHistory");
+
+                    b.Navigation("LoanPayment");
                 });
 #pragma warning restore 612, 618
         }

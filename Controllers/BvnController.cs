@@ -64,6 +64,12 @@ namespace onboardingAPI.Controllers
             return Ok(new{Message="BVN info updated successfully"});
         }
 
+        [HttpGet("demo")]
+        public IActionResult RedirectToGoogle()
+        {
+            return Redirect("https://www.google.com"); // Returns 302 Found and redirects to Google
+        }
+
         
     }
 }

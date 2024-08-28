@@ -29,6 +29,10 @@ namespace onboardingAPI.Models
         public BVNInfo? BVNInfo { get; set; }
         public BusinessInfo? BusinessInfo { get; set; }
         public IDInfo? IDInfo { get; set; }
+        public UserActions? UserAction { get; set; }
+        public Loan? Loan { get; set; }
+        public LoanHistory? LoanHistory { get; set; }
+        public LoanPayment? LoanPayment { get; set; }
     }
 
     public class Otp

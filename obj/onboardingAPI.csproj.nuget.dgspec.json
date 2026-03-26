@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\FMY-381\\Desktop\\projects\\onboardingAPI\\onboardingAPI.csproj": {}
+    "C:\\Users\\FMY-381\\Desktop\\projects\\C#\\onboardingAPI\\onboardingAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\FMY-381\\Desktop\\projects\\onboardingAPI\\onboardingAPI.csproj": {
+    "C:\\Users\\FMY-381\\Desktop\\projects\\C#\\onboardingAPI\\onboardingAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\FMY-381\\Desktop\\projects\\onboardingAPI\\onboardingAPI.csproj",
+        "projectUniqueName": "C:\\Users\\FMY-381\\Desktop\\projects\\C#\\onboardingAPI\\onboardingAPI.csproj",
         "projectName": "onboardingAPI",
-        "projectPath": "C:\\Users\\FMY-381\\Desktop\\projects\\onboardingAPI\\onboardingAPI.csproj",
+        "projectPath": "C:\\Users\\FMY-381\\Desktop\\projects\\C#\\onboardingAPI\\onboardingAPI.csproj",
         "packagesPath": "C:\\Users\\FMY-381\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\FMY-381\\Desktop\\projects\\onboardingAPI\\obj\\",
+        "outputPath": "C:\\Users\\FMY-381\\Desktop\\projects\\C#\\onboardingAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\FMY-381\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -115,7 +115,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
